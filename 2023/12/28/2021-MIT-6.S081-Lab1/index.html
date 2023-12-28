@@ -23,15 +23,15 @@
 <meta property="og:site_name" content="Half Moon">
 <meta property="og:description" content="总耗时13小时，先贴上代码，后面再来补充。 sleep12345678910111213141516&#x2F;&#x2F;&#x2F;&#x2F; Created by YCX on 2023&#x2F;12&#x2F;27.&#x2F;&#x2F;#include &quot;kernel&#x2F;types.h&quot;#include &quot;kernel&#x2F;stat.h&quot;#include &quot;user&#x2F;user.h&quot;int main(int">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="d:\Hexo\source\img\Posts\2021-MIT-6.S081\2021-MIT-6.S081-Lab1.png">
+<meta property="og:image" content="http://example.com/img/Posts/2021-MIT-6.S081/2021-MIT-6.S081-Lab1.png">
 <meta property="article:published_time" content="2023-12-28T10:58:00.000Z">
-<meta property="article:modified_time" content="2023-12-28T11:01:32.391Z">
+<meta property="article:modified_time" content="2023-12-28T11:07:08.581Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="心得">
 <meta property="article:tag" content="CSDIY">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="d:\Hexo\source\img\Posts\2021-MIT-6.S081\2021-MIT-6.S081-Lab1.png">
+<meta name="twitter:image" content="http://example.com/img/Posts/2021-MIT-6.S081/2021-MIT-6.S081-Lab1.png">
   
   
   
@@ -289,7 +289,7 @@
 <p>问题是指针的应用</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-comment">//</span><br><span class="hljs-comment">// Created by YCX on 2023/12/28.</span><br><span class="hljs-comment">//</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;kernel/types.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;kernel/stat.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;user/user.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;kernel/param.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> NULL (void*)0</span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span> **argv)</span>&#123;<br><br>    <span class="hljs-type">char</span> *argvs[MAXARG];<br>    <span class="hljs-type">int</span> i, index = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(i = <span class="hljs-number">1</span>; i &lt; argc; i++)&#123;<br>        argvs[index++] = argv[i];<br>    &#125;<br>    <span class="hljs-type">char</span> buf[<span class="hljs-number">512</span>];<br>    argvs[index] = buf;<br><br>    <span class="hljs-type">char</span> *p = buf;<br>    <span class="hljs-keyword">while</span>(read(<span class="hljs-number">0</span>, p, <span class="hljs-number">1</span>))&#123;<br>        <span class="hljs-keyword">if</span>(*p == <span class="hljs-string">&#x27;\n&#x27;</span>)&#123;<br>            *p = <span class="hljs-number">0</span>;<br>            p = buf;<br>            <span class="hljs-keyword">if</span>(fork() == <span class="hljs-number">0</span>)&#123;<br>                exec(argv[<span class="hljs-number">1</span>], argvs);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">else</span><br>            p++;<br>    &#125;<br>    wait(<span class="hljs-literal">NULL</span>);<br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="通关证明"><a href="#通关证明" class="headerlink" title="通关证明"></a>通关证明</h3><p><img src="D:\Hexo\source\img\Posts\2021-MIT-6.S081\2021-MIT-6.S081-Lab1.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="通关证明"><a href="#通关证明" class="headerlink" title="通关证明"></a>通关证明</h3><p><img src="/img/Posts/2021-MIT-6.S081/2021-MIT-6.S081-Lab1.png" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>
