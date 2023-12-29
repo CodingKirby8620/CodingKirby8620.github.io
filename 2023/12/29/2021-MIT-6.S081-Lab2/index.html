@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/Posts/2021-MIT-6.S081/2021-MIT-6.S081-Lab2.png">
 <meta property="article:published_time" content="2023-12-28T17:29:00.000Z">
-<meta property="article:modified_time" content="2023-12-28T18:08:23.586Z">
+<meta property="article:modified_time" content="2023-12-29T09:28:26.901Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="CSDIY">
 <meta property="article:tag" content="操作系统">
@@ -310,6 +310,7 @@
 </ul>
 <p>​	后面两个函数是根据 <code>sysinfo</code> 结构中对应部分命名的，注意这两个函数在实现之后需要将他们的函数原型加入 <code>kernel/defs.h</code> 文件中，否则将无法使用</p>
 <h4 id="sys-sysinfo"><a href="#sys-sysinfo" class="headerlink" title="sys_sysinfo"></a>sys_sysinfo</h4><p>​	这个函数需要弄明白 <code>copyout</code> 函数的用法，需要仔细模仿提示中给出的用法</p>
+<p>​	注意在使用这个结构体之前要先include对应的头文件，即 <code>sysinfo.h</code> </p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs C">uint64 <span class="hljs-title function_">sys_sysinfo</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;<br>    uint64 addr;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">proc</span>* <span class="hljs-title">p</span> =</span> myproc();<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sysinfo</span> <span class="hljs-title">info</span>;</span><br><br>    <span class="hljs-keyword">if</span>(argaddr(<span class="hljs-number">0</span>, &amp;addr) &lt; <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br><br>    info.nproc = getnproc();<br>    info.freemem = getfreemem();<br><br>    <span class="hljs-keyword">if</span>(copyout(p-&gt;pagetable, addr, (<span class="hljs-type">char</span> *)&amp;info, <span class="hljs-keyword">sizeof</span>(info)) &lt; <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h4 id="getfreemem"><a href="#getfreemem" class="headerlink" title="getfreemem"></a>getfreemem</h4><p>​	首先要去到 <code>kernel/kalloc.c</code> 中，它的写法要模仿这个文件中的 <code>kalloc</code> 函数写</p>
