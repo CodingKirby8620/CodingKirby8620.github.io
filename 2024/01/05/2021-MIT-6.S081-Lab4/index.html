@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/Posts/2021-MIT-6.S081/2021-MIT-6.S081-Lab4.png">
 <meta property="article:published_time" content="2024-01-04T17:56:00.000Z">
-<meta property="article:modified_time" content="2024-01-04T18:33:38.744Z">
+<meta property="article:modified_time" content="2024-01-04T18:40:57.089Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="CSDIY">
 <meta property="article:tag" content="操作系统">
@@ -297,8 +297,7 @@
 <p>​	然后提示我们应该修改 <code>kernel/trap.c</code> ，对时钟中断进行更改，这里提示问了一个问题：当RISC-V返回用户空间时什么决定了用户空间继续执行的指令的地址，这个答案显而易见就是pc，所以修改pc就行：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-keyword">if</span>(which_dev == <span class="hljs-number">2</span>)&#123;<br>      p-&gt;proc_time++; <span class="hljs-comment">// 其实有可能会溢出，这样写不算很好</span><br>      <span class="hljs-keyword">if</span>(p-&gt;need_alarm &amp;&amp; p-&gt;proc_time &gt;= p-&gt;tick)&#123;<br>          p-&gt;trapframe-&gt;epc = p-&gt;handler_ptr;<br>          p-&gt;proc_time -= p-&gt;tick;<br>      &#125;<br>      yield();<br>  &#125;<br></code></pre></td></tr></table></figure>
 
-<pre><code class="hljs"> 这之后Test0通过
-</code></pre>
+<p>​	这之后Test0通过</p>
 <h4 id="sigreturn"><a href="#sigreturn" class="headerlink" title="sigreturn"></a>sigreturn</h4><p>​	这里要做的就是正确恢复现场，在极端暴力的情况下直接保存Trapframe就行</p>
 <p>​	所以我们做这样的更改：</p>
 <p>​	对 <code>kernel/proc.h</code> 新增结构：</p>
