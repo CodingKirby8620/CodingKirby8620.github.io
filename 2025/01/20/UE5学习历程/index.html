@@ -16,15 +16,15 @@
   <meta name="author" content="CodingKirby">
   <meta name="keywords" content="">
   
-    <meta name="description" content="​	本博客作为留档使用，用来记录2025寒假期间UE5的相关学习记录和历程。 ​	本次学习为任务驱动式的学习，预期制作一个交通仿真系统的简单原型。 ​	（四级标题以周为单位，五级标题是重要知识点实现，六级标题是周报） 任务目标​	制作交通仿真系统前端，现在预期希望解决这些问题：  如何搭建一个城市？ 如何制作车与人的模型，并且让他们运动起来？ 在此基础上，如何让他们按照我希望的运动逻辑进行运动？">
+    <meta name="description" content="​	本博客作为留档使用，用来记录2025寒假期间UE5的相关学习记录和历程。 ​	本次学习为任务驱动式的学习，预期制作一个交通仿真系统的简单原型。 ​	（四级标题以周为单位，五级标题是周报，六级是知识点的实现和实践尝试） 任务目标​	制作交通仿真系统前端，现在预期希望解决这些问题：  如何搭建一个城市？ 如何制作车与人的模型，并且让他们运动起来？ 在此基础上，如何让他们按照我希望的运动逻辑进行运动">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UE5学习历程&amp;阶段目标">
+<meta property="og:title" content="从零开始的UE5学习历程&amp;阶段目标">
 <meta property="og:url" content="http://example.com/2025/01/20/UE5%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Half Moon">
-<meta property="og:description" content="​	本博客作为留档使用，用来记录2025寒假期间UE5的相关学习记录和历程。 ​	本次学习为任务驱动式的学习，预期制作一个交通仿真系统的简单原型。 ​	（四级标题以周为单位，五级标题是重要知识点实现，六级标题是周报） 任务目标​	制作交通仿真系统前端，现在预期希望解决这些问题：  如何搭建一个城市？ 如何制作车与人的模型，并且让他们运动起来？ 在此基础上，如何让他们按照我希望的运动逻辑进行运动？">
+<meta property="og:description" content="​	本博客作为留档使用，用来记录2025寒假期间UE5的相关学习记录和历程。 ​	本次学习为任务驱动式的学习，预期制作一个交通仿真系统的简单原型。 ​	（四级标题以周为单位，五级标题是周报，六级是知识点的实现和实践尝试） 任务目标​	制作交通仿真系统前端，现在预期希望解决这些问题：  如何搭建一个城市？ 如何制作车与人的模型，并且让他们运动起来？ 在此基础上，如何让他们按照我希望的运动逻辑进行运动">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-01-20T10:00:36.000Z">
-<meta property="article:modified_time" content="2025-01-24T09:07:45.947Z">
+<meta property="article:modified_time" content="2025-01-24T11:27:11.519Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="UE5">
 <meta property="article:tag" content="DCC入门">
@@ -33,7 +33,7 @@
   
   
   
-  <title>UE5学习历程&amp;阶段目标 - Half Moon</title>
+  <title>从零开始的UE5学习历程&amp;阶段目标 - Half Moon</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="UE5学习历程&amp;阶段目标"></span>
+            <span id="subtitle" data-typed-text="从零开始的UE5学习历程&amp;阶段目标"></span>
           
         </div>
 
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          2k 字
         
       </span>
     
@@ -266,14 +266,14 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">UE5学习历程&amp;阶段目标</h1>
+            <h1 id="seo-header">从零开始的UE5学习历程&amp;阶段目标</h1>
             
             
               <div class="markdown-body">
                 
                 <p>​	本博客作为留档使用，用来记录2025寒假期间UE5的相关学习记录和历程。</p>
 <p>​	本次学习为任务驱动式的学习，预期制作一个交通仿真系统的简单原型。</p>
-<p>​	（四级标题以周为单位，五级标题是重要知识点实现，六级标题是周报）</p>
+<p>​	（四级标题以周为单位，五级标题是周报，六级是知识点的实现和实践尝试）</p>
 <h3 id="任务目标"><a href="#任务目标" class="headerlink" title="任务目标"></a>任务目标</h3><p>​	制作交通仿真系统前端，现在预期希望解决这些问题：</p>
 <ul>
 <li>如何搭建一个城市？</li>
@@ -311,7 +311,25 @@
 <p>​	编程和脚本编写，主要聚焦于蓝图脚本的使用方法。这个可视化编程脚本可以用OO的思维模式理解。这个东西除了可以直接连线进行组件间沟通（术语是直接通信），还存在接口通信（UE5有接口继承的方式），<strong>事件通信</strong>（这个很重要）和cast转换（主要是用于访问特殊子类的操作）。这当中可能会认为事件通信很重要，因为事件的订阅和通知正好就是我们仿真系统希望实现的功能（车辆接送乘客）的本质。</p>
 <p>​	同时对于之前提到的时间，事实上模拟不可能按照正常时间尺度进行，不然我们会很难获取结果。因为每个Actor都自带一个逐帧计时的事件的功能，或许可以以帧为单位适当压缩时间尺度进行模拟，对于时间的控制，上方第二个教程有提到过全局时间控制的功能，或许可以一用。</p>
 <p>​	中文资料确实不太多，应该放眼油管再看看。</p>
-<h6 id="W1周报"><a href="#W1周报" class="headerlink" title="W1周报"></a>W1周报</h6><ul>
+<blockquote>
+<p>实践上希望完成什么呢？</p>
+<ul>
+<li>按帧模拟日出日落（测试时间）</li>
+<li>Houdini与城市</li>
+<li>让车和人先动起来（人的话是有提过MetaHuman的，资产的问题恐怕是）</li>
+<li>UMG的UI设计，先摆摆看再说</li>
+</ul>
+</blockquote>
+<h5 id="实践尝试"><a href="#实践尝试" class="headerlink" title="实践尝试"></a>实践尝试</h5><h6 id="时间系统"><a href="#时间系统" class="headerlink" title="时间系统"></a>时间系统</h6><p>​	需求:</p>
+<ul>
+<li>显示时间</li>
+<li>每一帧更新，一帧视为一秒</li>
+<li>太阳光跟随，按时间日出日落</li>
+<li>运行时不允许修改时间，要能暂停世界，暂停后运行修改时间</li>
+</ul>
+<p>​	出于对模拟精度的要求，Sunsky Actor这种可以有效根据地理位置进行太阳光照模拟的插件比自带的光源更好（其本质就是一个打包的定向光源），通过对其中的日期和时间参数进行更改我们就可以获得较好的模拟体验。</p>
+<p>​	通过蓝图更改Date,Solar Time和经纬度可以较好的模拟定期的日升日落。同样的逻辑有希望作用于别的时控逻辑。</p>
+<h5 id="W1周报"><a href="#W1周报" class="headerlink" title="W1周报"></a>W1周报</h5><ul>
 <li>本周的工作聚焦UE5的入门，预期是W1~W2都专注于学习UE5的基础功能</li>
 <li>本周学习的内容包括：<ul>
 <li>虚幻编辑器的基本使用方式（基本S&#x2F;L；设置；资产的获取，导入和使用；环境光照设置）</li>
@@ -381,7 +399,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>UE5学习历程&amp;阶段目标</div>
+      <div>从零开始的UE5学习历程&amp;阶段目标</div>
       <div>http://example.com/2025/01/20/UE5学习历程/</div>
     </div>
     <div class="license-meta">
