@@ -27,8 +27,11 @@
 <meta property="og:image" content="c:\Users\YCX\AppData\Roaming\Typora\typora-user-images\image-20250126152531363.png">
 <meta property="og:image" content="c:\Users\YCX\AppData\Roaming\Typora\typora-user-images\image-20250126152714492.png">
 <meta property="og:image" content="c:\Users\YCX\AppData\Roaming\Typora\typora-user-images\image-20250126152403217.png">
+<meta property="og:image" content="d:\Hexo\source\img\Posts\%E5%91%A8%E6%8A%A5\EventHandler1.png">
+<meta property="og:image" content="d:\Hexo\source\img\Posts\%E5%91%A8%E6%8A%A5\EventHandler2.png">
+<meta property="og:image" content="d:\Hexo\source\img\Posts\%E5%91%A8%E6%8A%A5\EventHandler3.png">
 <meta property="article:published_time" content="2025-01-20T10:00:36.000Z">
-<meta property="article:modified_time" content="2025-01-26T07:28:01.243Z">
+<meta property="article:modified_time" content="2025-01-27T10:03:43.058Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="UE5">
 <meta property="article:tag" content="DCC入门">
@@ -232,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.5k 字
         
       </span>
     
@@ -393,6 +396,20 @@
 <p>​	最后，导出udatasmith，并且导入UE5，最终效果如下图所示：</p>
 <p><img src="C:\Users\YCX\AppData\Roaming\Typora\typora-user-images\image-20250126152403217.png" srcset="/img/loading.gif" lazyload alt="image-20250126152403217"></p>
 <p>​	至此，本课题完成。</p>
+<p>​	备注：用于数字孪生城市的建模的数据结构，发现存在一种叫做CityGML的数据结构。或许可以更好胜任任务。但本周并不打算就这个话题继续深入探究。等之后有空再回来填坑。</p>
+<p>​	先把资料链接放在这里：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/234846577">数字孪生城市的建筑模型处理技术简介 - 知乎</a></p>
+<h6 id="调研将UE5项目打包到前端框架部署的方案"><a href="#调研将UE5项目打包到前端框架部署的方案" class="headerlink" title="调研将UE5项目打包到前端框架部署的方案"></a>调研将UE5项目打包到前端框架部署的方案</h6><p>​	</p>
+<h5 id="知识点记录"><a href="#知识点记录" class="headerlink" title="知识点记录"></a>知识点记录</h5><h6 id="事件分发机制"><a href="#事件分发机制" class="headerlink" title="事件分发机制"></a>事件分发机制</h6><p>​	UE的事件分发机制简而言之其实就是“监听——广播”的机制。之所以需要再强调一下是因为形式上稍微有些不理解。</p>
+<p>​	参考这篇博客：<a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/842531201764818946">一篇文章看懂UE事件分发器怎么用 - 哔哩哔哩</a></p>
+<p>​	借用这个文章的几张图说自己的理解</p>
+<p><img src="D:\Hexo\source\img\Posts\周报\EventHandler1.png" srcset="/img/loading.gif" lazyload alt="EventHandler1"></p>
+<p>​	这张图的意思是“调用事件”，我为这个Actor设置了某个事件，在一定条件下它会调用这个事件。</p>
+<p><img src="D:\Hexo\source\img\Posts\周报\EventHandler2.png" srcset="/img/loading.gif" lazyload alt="EventHandler2"></p>
+<p>​	这是监听端，开始运行后会激活这个监听器（“绑定事件到BOSS挂了”这个东西，我倾向于把它理解成是一个特定语法的监听器，目标指的是监听的哪一个Actor，事件指的是监听哪一个事件，综合而言就是监听X对象的E事件），然后监听器会挂载一系列事件调用（以那个事件作为接口）（一切理解成语法原因就行）</p>
+<p><img src="D:\Hexo\source\img\Posts\周报\EventHandler3.png" srcset="/img/loading.gif" lazyload alt="EventHandler3"></p>
+<p>​	最后是最末端的事件，收到上方的调用后会激活这个事件。</p>
+<p>​	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1nQSUYTEAv/?vd_source=e3bc0a74b003e86cc67e459d9355420a">【双字精译】虚幻引擎中的接口与事件分发器——Ali Elzoheiry_哔哩哔哩_bilibili</a></p>
+<p>​	借由这个视频可知存在，第二张图中的那个更为怪异的语法存在一个优势，那就是可以自由解绑捆绑。</p>
 
                 
               </div>
