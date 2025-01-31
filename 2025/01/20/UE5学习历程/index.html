@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/EventHandler2.png">
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/EventHandler3.png">
 <meta property="article:published_time" content="2025-01-20T10:00:36.000Z">
-<meta property="article:modified_time" content="2025-01-30T14:44:55.506Z">
+<meta property="article:modified_time" content="2025-01-31T11:39:39.928Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="UE5">
 <meta property="article:tag" content="DCC入门">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.3k 字
+          6.6k 字
         
       </span>
     
@@ -436,6 +436,16 @@
 <p>​	针对人，素材倒是不需要很担心，因为虚幻本身的Quixel Bridge资产库当中存在若干仿真数字人的免费资产。考虑人物多样性的话勉强够用。</p>
 <p>​	紧接着，需要考虑如何为数字人添加动作。这是难点。实际上示例项目当中存在默认角色，它们本身就带有基础的动作动画（在这里我走了一个弯路浪费了半天的时间QAQ），通过动画重定向能够将默认角色的动画绑定到数字人身上。具有可行性，截止目前尚在实践尝试中。</p>
 <p>​	预期是希望根据速度变更数字人的走路和暂停动作，若之后完成了此项实践则会将结果后附。</p>
+<p>​	IK绑定要比预想中简单，因为虚幻提供了自动IK功能，以及迁移的双方（默认角色和预设的数字人）他们的骨架是相同的结构，所以动画迁移并没有那么困难了。但是对于几种不同的角色，动画要同时迁移好多次，可能是一个体力活。</p>
+<p>​	在尝试绑定角色操控时发生问题，角色无法接收输入并且移动。</p>
+<p>​	最后使用官方方案（资料2），在实际操作过程中发现骨骼体用错了，但是最后完成也是完成了。最后得到的人物具有严重的滑步问题和转向问题。说明自制的动画蓝图效果并不是很好。交互动画是比较难做的。不过，幸好可以直接将默认动画蓝图绑定给角色。最终角色拥有较好的移动效果。算是勉强完成了让单个角色动起来的任务。</p>
+<p>​	绕弯路的过程中也学习了IK绑定，基础角色蓝图制作等，针对这一系列步骤由于表述是较为繁琐的所以建议就是直接附上相关技术文档就是了。因为操作起来确实按部就班。有可能还需要多使用几次蓝图来慢慢理解蓝图究竟在干啥（这玩意和普通编程感觉还是有些差距的，我的情况有些类似于不知道有什么常用库函数可以调用&amp;专门模块的库函数是可以做什么的）</p>
+<p>​	另外人物蓝图这一块是完成了基本的动画绑定，但是目前能做到的就是人物制作和绑定动画而已，至于给人物适配AI控制器……这一部分涉及AI蓝图了，实在是非常头疼的事情……</p>
+<p>​	其他参考资料：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1LCtfedE9D/?spm_id_from=333.337.search-card.all.click&vd_source=e3bc0a74b003e86cc67e459d9355420a">UE5.4一键生成NPC_哔哩哔哩_bilibili</a></p>
+<p>这种生成有点像我预想中的AI人群的生成效果，但是MassAI这里的路径规划也是一个较为麻烦的事情</p>
+</blockquote>
 <h5 id="知识点记录"><a href="#知识点记录" class="headerlink" title="知识点记录"></a>知识点记录</h5><h6 id="事件分发机制"><a href="#事件分发机制" class="headerlink" title="事件分发机制"></a>事件分发机制</h6><p>​	UE的事件分发机制简而言之其实就是“监听——广播”的机制。之所以需要再强调一下是因为形式上稍微有些不理解。</p>
 <p>​	参考这篇博客：<a target="_blank" rel="noopener" href="https://www.bilibili.com/opus/842531201764818946">一篇文章看懂UE事件分发器怎么用 - 哔哩哔哩</a></p>
 <p>​	借用这个文章的几张图说自己的理解</p>
@@ -447,6 +457,10 @@
 <p>​	最后是最末端的事件，收到上方的调用后会激活这个事件。</p>
 <p>​	<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1nQSUYTEAv/?vd_source=e3bc0a74b003e86cc67e459d9355420a">【双字精译】虚幻引擎中的接口与事件分发器——Ali Elzoheiry_哔哩哔哩_bilibili</a></p>
 <p>​	借由这个视频可知存在，第二张图中的那个更为怪异的语法存在一个优势，那就是可以自由解绑捆绑。</p>
+<h6 id="IK绑定"><a href="#IK绑定" class="headerlink" title="IK绑定"></a>IK绑定</h6><p>​	简单来说就是根据骨架信息进行动作的同步。不同的骨架构造出相似的骨架组，然后骨架组之间进行匹配。构造骨架组是IK绑定，而骨架动作同步则是IK重定向器。借助这个工具可以轻松实现动画序列的换模。虽说最终解决方案并没有用到IK绑定但是不可否认的是IK绑定是一个很好用的工具。</p>
+<h6 id="角色蓝图构造-虚幻蓝图基础类型的重新学习"><a href="#角色蓝图构造-虚幻蓝图基础类型的重新学习" class="headerlink" title="角色蓝图构造&amp;虚幻蓝图基础类型的重新学习"></a>角色蓝图构造&amp;虚幻蓝图基础类型的重新学习</h6><p>​	这一块记录我在让人动起来这个过程中踩的一些坑。</p>
+<p>​	首先是Actor和Pawn（Character），这次踩坑让我重新复习了这三类基础蓝图。MetaHuman下载下来的时候是Actor文件，它是不能直接通过更换父类来做到使用的（实践中踩的坑，直接替换父类仍然无法使用）。正确的换模应该是新建Character然后将网格体复制过去。需要重新再来强调这3类文件，Actor这个类我倾向于理解成Unity的GameObject，这玩意是游戏当中放置的各种东西的一个大的基类，而Pawn则是Actor中可以操控的类（Character则是Pawn的更细化的一个特例，它可以胜任复杂的动作）。所以根据这一点和实践来看，Actor直接特化为Pawn应该是一个不可行的思路。</p>
+<p>​	第二是蓝图的制作，这一点我只能说尚在摸索当中。在周会后我还需要将本次使用的EnableMasterPose函数进行分析。不知道为什么我觉得蓝图的学习有些难以下手，可能需要花一些时间复盘一下这个问题。最好的办法恐怕还是要拆解一下官方案例学习一下。另外，基于Character外接AI控制器这个想法虽然具有一定可行性，但是考虑多人物渲染会不会出问题，这就是一个有待继续讨论的话题了。最后很惊讶于能直接使用默认动画蓝图（默认蓝图是给默认骨骼使用的，虽说预设数字人的骨骼结构和默认骨骼一致但是实际上是两个文件，还以为会存在文件归属问题）</p>
 
                 
               </div>
