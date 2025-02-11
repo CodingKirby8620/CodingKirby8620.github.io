@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/CorrectRoad.png">
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/WrongRoad.png">
 <meta property="article:published_time" content="2025-01-20T10:00:36.000Z">
-<meta property="article:modified_time" content="2025-02-08T11:59:45.191Z">
+<meta property="article:modified_time" content="2025-02-11T11:31:27.750Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="UE5">
 <meta property="article:tag" content="DCC入门">
@@ -548,7 +548,25 @@
 <p>​	现在的情况是素材处理成功，导入也成功了。</p>
 <p>​	仍然残余问题，用自制素材合成的车辆Pawn也能跑通构造流程而不报错，但是在实际测试时会发生相当鬼畜的情况以至于自制素材并没有办法实际投入使用。这个问题现在正在解决中……</p>
 <p>​	根据参考资料来看仍然有可能是模型加工未到位的问题，需要进一步深究。关于模型加工，一旦成功会立刻更新到周报中。</p>
+<p>​	疑似骨骼绑定出现问题，UE5和DCC软件是不能分开学的。初步排查，UE5内骨骼绑定存在问题，需要回3DS MAX那边学跟骨骼绑定相关的知识。</p>
 <p>​	资料：[Why is my wheeled vehicle flying away?<a target="_blank" rel="noopener" href="https://forums.unrealengine.com/t/why-is-my-wheeled-vehicle-flying-away-solved/328365/2">SOLVED] - Development &#x2F; World Creation - Epic Developer Community Forums</a></p>
+<h4 id="W4"><a href="#W4" class="headerlink" title="W4"></a>W4</h4><p>本周聚焦UE5的相关问题，希望解决的问题包括：</p>
+<ul>
+<li>调研一下库（长期任务，本周比重不是那么大，可以选做）</li>
+<li>把路网和车组装起来看看（碰撞怎么办，物理怎么办）（优先级高）</li>
+<li>人车交互</li>
+<li>多车的不同操作</li>
+<li>车动起来（跑通从DIY骨架开始的整个流程）</li>
+</ul>
+<h5 id="实践要求-2"><a href="#实践要求-2" class="headerlink" title="实践要求"></a>实践要求</h5><h6 id="让车动起来-1"><a href="#让车动起来-1" class="headerlink" title="让车动起来"></a>让车动起来</h6><p>​	困扰了4天的问题因为一个无意的操作而解决了。</p>
+<p>​	所有的流程都是跑的通的，从搭建骨架开始的所有流程都是通的。</p>
+<p>​	造成这个蛋疼问题的最终原因是物理资产的设置错误，那个物理资产，如果只有轮子图元是开着碰撞的话是跑不通的，会螺旋升天；需要将车身的碰撞也打开才行。<strong>将车身碰撞打开后碰撞就会正常</strong>，其他的所有流程都是跑的通的！</p>
+<p>​	至此这个问题迎来完美落幕。车的运动仍然存在不少瑕疵，但是至少它能正常跑起来了。</p>
+<h5 id="知识点记录-2"><a href="#知识点记录-2" class="headerlink" title="知识点记录"></a>知识点记录</h5><h6 id="如何让一辆车简单的动起来（复盘）"><a href="#如何让一辆车简单的动起来（复盘）" class="headerlink" title="如何让一辆车简单的动起来（复盘）"></a>如何让一辆车简单的动起来（复盘）</h6><p>​	从车辆网格体开始搭建车的骨骼模型可以参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_61047553/article/details/142516817">UE5 载具 从静态网格体生成骨骼网格体（使用3ds Max）_ue5静态网格体转换骨骼网格体-CSDN博客</a></p>
+<p>​	而从网格模型生成实际可驾驶的车辆则是：</p>
+<p><a target="_blank" rel="noopener" href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/how-to-set-up-vehicles-in-unreal-engine">如何设置载具 | 虚幻引擎 5.5 文档 | Epic Developer Community</a></p>
+<p>​	这两篇即可，踩的最多的坑是物理资产的设置，物理资产是可以管碰撞的。需要具体学学物理资产的作用。另外，静态网格体的碰撞要前往静态网格体本身进行设置。这一块的相关技术可以再找一些教程看看。</p>
 
                 
               </div>
