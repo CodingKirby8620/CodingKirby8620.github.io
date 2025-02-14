@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/CorrectRoad.png">
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/WrongRoad.png">
 <meta property="article:published_time" content="2025-01-20T10:00:36.000Z">
-<meta property="article:modified_time" content="2025-02-14T06:18:26.779Z">
+<meta property="article:modified_time" content="2025-02-14T10:54:33.951Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="UE5">
 <meta property="article:tag" content="DCC入门">
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12k 字
+          13k 字
         
       </span>
     
@@ -577,6 +577,7 @@
 <p>​	感觉这一块需要一些迭代。</p>
 <p>​	UE5具有的AI工具箱是较为复杂的，这一块可能还要花一些时间学。</p>
 <p>​	同时因为AI蓝图确实涉及到了大量蓝图编程，这一块也需要花时间继续适应。</p>
+<p>​	难道说车和人的AI移动配置上不一样？AI Move To蓝图似乎有限制，它只能移动角色而不能移动载具。需要另外寻找解决方案？</p>
 <blockquote>
 <p>参考资料：</p>
 <p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dz4y1A7G3/?p=2&spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=e3bc0a74b003e86cc67e459d9355420a">1 选择与顺序节点_哔哩哔哩_bilibili</a></p>
@@ -590,7 +591,20 @@
 <p>​	而从网格模型生成实际可驾驶的车辆则是：</p>
 <p><a target="_blank" rel="noopener" href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/how-to-set-up-vehicles-in-unreal-engine">如何设置载具 | 虚幻引擎 5.5 文档 | Epic Developer Community</a></p>
 <p>​	这两篇即可，踩的最多的坑是物理资产的设置，物理资产是可以管碰撞的。需要具体学学物理资产的作用。另外，静态网格体的碰撞要前往静态网格体本身进行设置。这一块的相关技术可以再找一些教程看看。</p>
-<h6 id="蓝图调试"><a href="#蓝图调试" class="headerlink" title="蓝图调试"></a>蓝图调试</h6><h6 id="AI初步"><a href="#AI初步" class="headerlink" title="AI初步"></a>AI初步</h6>
+<h6 id="蓝图调试"><a href="#蓝图调试" class="headerlink" title="蓝图调试"></a>蓝图调试</h6><p>​	蓝图也可以通过打上断点来进行调试。</p>
+<p>​	对于可视化编程，我们可以随时在接点进行数据查看和追踪。这一点可以通过打开函数直接查看。AI工具箱的行为树也支持类似的行为追踪。</p>
+<p>​	UE5本身也支持蓝图调试器的使用，可以通过追踪类，查看每个类下拥有的个体的当前值。</p>
+<h6 id="AI初步"><a href="#AI初步" class="headerlink" title="AI初步"></a>AI初步</h6><p>​	初步的AI主要聚焦于行为树和黑板，前者规定AI的行为，后者涉及AI判断行为执行的标准。</p>
+<p>​	使用AI的流程：创建AI控制器-&gt;将NPC的AI控制器设置为创建好的AI控制器，并设置生成和放置-&gt;AI控制器蓝图，运行行为树同时绑定对应行为树。到这里初期设置完成。</p>
+<p>​	基本节点有Selector，Sequencer和Simple Parallel。主要聚焦前两个节点。Selector从左到右执行，只要有一个子节点任务是可以成功执行的就返回。Sequencer是从左往右依次执行所有节点，遇到子节点失败即退出，全部节点成功也会返回。</p>
+<p>​	可以添加导航网格体体积标识NPC可以前往的地方（合法坐标？）</p>
+<p>​	在Task中设置的黑板键选择器一定要把“可见”勾出来，这样才能做到与黑板的数据交互。</p>
+<p>​	关于人和车的AI自动驱动测试，感觉存在相似的地方。要不要使用接口进行解耦？</p>
+<p>​	</p>
+<p>​	</p>
+<p>​	</p>
+<p>​	</p>
+
                 
               </div>
             
