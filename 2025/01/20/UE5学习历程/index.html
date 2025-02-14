@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/CorrectRoad.png">
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/WrongRoad.png">
 <meta property="article:published_time" content="2025-01-20T10:00:36.000Z">
-<meta property="article:modified_time" content="2025-02-11T11:31:27.750Z">
+<meta property="article:modified_time" content="2025-02-14T06:18:26.779Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="UE5">
 <meta property="article:tag" content="DCC入门">
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          12k 字
         
       </span>
     
@@ -550,7 +550,7 @@
 <p>​	根据参考资料来看仍然有可能是模型加工未到位的问题，需要进一步深究。关于模型加工，一旦成功会立刻更新到周报中。</p>
 <p>​	疑似骨骼绑定出现问题，UE5和DCC软件是不能分开学的。初步排查，UE5内骨骼绑定存在问题，需要回3DS MAX那边学跟骨骼绑定相关的知识。</p>
 <p>​	资料：[Why is my wheeled vehicle flying away?<a target="_blank" rel="noopener" href="https://forums.unrealengine.com/t/why-is-my-wheeled-vehicle-flying-away-solved/328365/2">SOLVED] - Development &#x2F; World Creation - Epic Developer Community Forums</a></p>
-<h4 id="W4"><a href="#W4" class="headerlink" title="W4"></a>W4</h4><p>本周聚焦UE5的相关问题，希望解决的问题包括：</p>
+<h4 id="W4"><a href="#W4" class="headerlink" title="W4"></a>W4</h4><p>​	本周聚焦UE5的相关问题，希望解决的问题包括：</p>
 <ul>
 <li>调研一下库（长期任务，本周比重不是那么大，可以选做）</li>
 <li>把路网和车组装起来看看（碰撞怎么办，物理怎么办）（优先级高）</li>
@@ -558,16 +558,39 @@
 <li>多车的不同操作</li>
 <li>车动起来（跑通从DIY骨架开始的整个流程）</li>
 </ul>
+<p>​	关于虚幻5的学习，经历了约1个月，有一些碎碎念了。</p>
+<p>​	无论是油管还是B站，各种入门向视频讲的相对我目前希望的程度而言是过浅的。只有针对一个具体的案例去学习才可能对这一块有所收获。也就是说这玩意最合适的还得是案例式学习。根据需要实现的功能去查阅文档然后实现这块的功能，这就是UE5较好的一个学习方式了。未来做Demo也是如此，根据需求功能去对点查文档和视频进行学习，然后进行一个实现。</p>
 <h5 id="实践要求-2"><a href="#实践要求-2" class="headerlink" title="实践要求"></a>实践要求</h5><h6 id="让车动起来-1"><a href="#让车动起来-1" class="headerlink" title="让车动起来"></a>让车动起来</h6><p>​	困扰了4天的问题因为一个无意的操作而解决了。</p>
 <p>​	所有的流程都是跑的通的，从搭建骨架开始的所有流程都是通的。</p>
 <p>​	造成这个蛋疼问题的最终原因是物理资产的设置错误，那个物理资产，如果只有轮子图元是开着碰撞的话是跑不通的，会螺旋升天；需要将车身的碰撞也打开才行。<strong>将车身碰撞打开后碰撞就会正常</strong>，其他的所有流程都是跑的通的！</p>
 <p>​	至此这个问题迎来完美落幕。车的运动仍然存在不少瑕疵，但是至少它能正常跑起来了。</p>
+<h6 id="车辆与路网的碰撞"><a href="#车辆与路网的碰撞" class="headerlink" title="车辆与路网的碰撞"></a>车辆与路网的碰撞</h6><p>​	不是问题的问题，在解决了让车辆落地的问题之后，这个问题自然就解决了。</p>
+<p>​	本身，静态网格体默认是开启碰撞的，所以车也就能正常在上面运行了。</p>
+<h6 id="人车交互设计"><a href="#人车交互设计" class="headerlink" title="人车交互设计"></a>人车交互设计</h6><p>​	按照学长在聊天记录当中说明的那个意思应该正确是车辆的状态表示。</p>
+<p>​	通过不同颜色信息表达车辆所处的不同状态，然后切换状态时切换车所拥有的颜色。</p>
+<p>​	举个例子，在接客过程中是红色，在运行过程中是黄色，在下车过程中是绿色。来回切换。至于人的话，其实只要在对应的目标点周围生成一个等待的人的模型就行（或者选中一个人让它处于等待状态？）</p>
+<p>​	调研的时候是往互动动画那一块去调研了，只能说稍微走了一些弯路。</p>
+<p>​	如果是往这一块走的话，可能需要去查看如何完成一些特效，用简单的特效去标记车辆。</p>
+<h6 id="多车运动"><a href="#多车运动" class="headerlink" title="多车运动"></a>多车运动</h6><p>​	重点应该放在这里。</p>
+<p>​	让车动起来的步骤的话：</p>
+<p>​	让车能在人的操作下动起来-&gt;让车能在AI控制器的控制下动起来-&gt;让车能在指定的路径下动起来-&gt;让车辆能按照交规动起来-&gt;让大量车能在路上按照交规动起来</p>
+<p>​	感觉这一块需要一些迭代。</p>
+<p>​	UE5具有的AI工具箱是较为复杂的，这一块可能还要花一些时间学。</p>
+<p>​	同时因为AI蓝图确实涉及到了大量蓝图编程，这一块也需要花时间继续适应。</p>
+<blockquote>
+<p>参考资料：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dz4y1A7G3/?p=2&spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=e3bc0a74b003e86cc67e459d9355420a">1 选择与顺序节点_哔哩哔哩_bilibili</a></p>
+<p>这位的视频对AI工具箱有一个很明确的讲解，讲的是相当全面的</p>
+<p><a target="_blank" rel="noopener" href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/artificial-intelligence-in-unreal-engine">虚幻引擎中的人工智能 | 虚幻引擎 5.5 文档 | Epic Developer Community</a></p>
+<p>文档中关于人工智能的模块</p>
+<p>同时可能会用到的MassEntity框架的资料略少，现在还需要找更多资料</p>
+</blockquote>
 <h5 id="知识点记录-2"><a href="#知识点记录-2" class="headerlink" title="知识点记录"></a>知识点记录</h5><h6 id="如何让一辆车简单的动起来（复盘）"><a href="#如何让一辆车简单的动起来（复盘）" class="headerlink" title="如何让一辆车简单的动起来（复盘）"></a>如何让一辆车简单的动起来（复盘）</h6><p>​	从车辆网格体开始搭建车的骨骼模型可以参考：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_61047553/article/details/142516817">UE5 载具 从静态网格体生成骨骼网格体（使用3ds Max）_ue5静态网格体转换骨骼网格体-CSDN博客</a></p>
 <p>​	而从网格模型生成实际可驾驶的车辆则是：</p>
 <p><a target="_blank" rel="noopener" href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/how-to-set-up-vehicles-in-unreal-engine">如何设置载具 | 虚幻引擎 5.5 文档 | Epic Developer Community</a></p>
 <p>​	这两篇即可，踩的最多的坑是物理资产的设置，物理资产是可以管碰撞的。需要具体学学物理资产的作用。另外，静态网格体的碰撞要前往静态网格体本身进行设置。这一块的相关技术可以再找一些教程看看。</p>
-
+<h6 id="蓝图调试"><a href="#蓝图调试" class="headerlink" title="蓝图调试"></a>蓝图调试</h6><h6 id="AI初步"><a href="#AI初步" class="headerlink" title="AI初步"></a>AI初步</h6>
                 
               </div>
             
