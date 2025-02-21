@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/CorrectRoad.png">
 <meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/WrongRoad.png">
 <meta property="article:published_time" content="2025-01-20T10:00:36.000Z">
-<meta property="article:modified_time" content="2025-02-14T10:58:42.291Z">
+<meta property="article:modified_time" content="2025-02-21T08:56:08.255Z">
 <meta property="article:author" content="CodingKirby">
 <meta property="article:tag" content="UE5">
 <meta property="article:tag" content="DCC入门">
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k 字
+          14k 字
         
       </span>
     
@@ -602,9 +602,36 @@
 <p>​	可以添加导航网格体体积标识NPC可以前往的地方（合法坐标？）</p>
 <p>​	在Task中设置的黑板键选择器一定要把“可见”勾出来，这样才能做到与黑板的数据交互。</p>
 <p>​	关于人和车的AI自动驱动测试，感觉存在相似的地方。要不要使用接口进行解耦？</p>
-<p>​	</p>
-<p>​	</p>
-<p>​	</p>
+<h4 id="W5"><a href="#W5" class="headerlink" title="W5"></a>W5</h4><p>​	本周希望完成的任务有：</p>
+<ul>
+<li><strong>车能在AI控制器的驱动下动起来</strong>（最重要）</li>
+<li><strong>设计数据表&#x2F;接口表，车能够按照后端来的数据运动（ID，下一时刻的位置，中间的路线）</strong><ul>
+<li>前后端的数据交互接口，实现多车运动，自己搓一个数据出来跑一次试试。</li>
+<li>数据-&gt;路径-&gt;驱动车跑</li>
+<li>不求完善，但是能跑</li>
+</ul>
+</li>
+<li><strong>OSM文件的数据如何映射到城市模型上</strong>（很重要），<strong>表示数据就行，具体运行细节交给后端</strong></li>
+</ul>
+<p>​	同样的，这周任务没有一个轻松的。我不确定是否需要将这些任务延长到两周，看上去确实相当棘手。只能说，尽力而为。</p>
+<h5 id="实践要求-3"><a href="#实践要求-3" class="headerlink" title="实践要求"></a>实践要求</h5><h6 id="让人动起来（AI）"><a href="#让人动起来（AI）" class="headerlink" title="让人动起来（AI）"></a>让人动起来（AI）</h6><p>​	也遇到了人不动的问题，最后误打误撞调试对了。</p>
+<p>​	目前手动给人设置目标后它可以按照既定目标路径动起来（使用寻路点作为引导物）</p>
+<p>​	debug出现的问题是行为树Move To节点中的“可接受半径”参数</p>
+<p>​	它的作用是让运行成功的范围，变成以所选坐标为圆心，可接受半径为半径的圆</p>
+<p>​	一开始因为把这个参数设的非常大（不理解此参数的含义）导致人无法移动</p>
+<p>​	根据测试可知，必须让AIPawn处于导航体积内才可以让它正确实现驱动</p>
+<h6 id="让车动起来（AI）"><a href="#让车动起来（AI）" class="headerlink" title="让车动起来（AI）"></a>让车动起来（AI）</h6><p>​	经过测试，车辆确实不适用行为树的原生的Move To逻辑，需要自己重新手写</p>
+<p>​	需要学习VehicleMoveComponent及其相关蓝图函数的使用方法，然后自行拼出一个可用的节点方案</p>
+<p>​	预期另开一篇博客记录学习到的内容和实现的思路，相信会有点多</p>
+<blockquote>
+<p>参考资料：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34437757/article/details/133029202">UE5 ChaosVehicles载具研究 （连载一）_ue5载具转弯车轮卡顿-CSDN博客</a></p>
+<p>这篇博客介绍了ChaosVehicle的常用节点及其功能，同时对摄像头的变换有启发</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BP4y1G78z/?spm_id_from=333.337.search-card.all.click&vd_source=e3bc0a74b003e86cc67e459d9355420a">虚幻引擎 - 车辆AI导航（非样条线）教程（全网首个非Character寻路教程）（已上传字幕文件）_哔哩哔哩_bilibili</a></p>
+<p>实现上参考这个视频</p>
+</blockquote>
+<h5 id="知识点记录-3"><a href="#知识点记录-3" class="headerlink" title="知识点记录"></a>知识点记录</h5><h6 id="AI工具箱"><a href="#AI工具箱" class="headerlink" title="AI工具箱"></a>AI工具箱</h6><p>​	已另开文章记录，请去博客主页查看。</p>
+<h6 id="UE5中如何控制车辆的运动"><a href="#UE5中如何控制车辆的运动" class="headerlink" title="UE5中如何控制车辆的运动"></a>UE5中如何控制车辆的运动</h6><p>​	另开文章记录，请去博客主页查看。</p>
 <p>​	</p>
 
                 
@@ -699,6 +726,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/02/13/UE5%20AI%E5%B7%A5%E5%85%B7%E7%AE%B1%20%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="UE5 AI模块 学习记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">UE5 AI模块 学习记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
