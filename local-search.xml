@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>WASM毕设 学习记录</title>
+    <link href="/2025/03/06/WASM%E6%AF%95%E8%AE%BE/"/>
+    <url>/2025/03/06/WASM%E6%AF%95%E8%AE%BE/</url>
+    
+    <content type="html"><![CDATA[<p>​本博客记录WASM毕设的学习过程及研读相关资料时产生的思路等杂项。由于前期在忙考研复试，进展会出奇地慢。</p><h4 id="任务总览"><a href="#任务总览" class="headerlink" title="任务总览"></a>任务总览</h4><p>​毕设任务原文如下：</p><blockquote><p>​WASM字节码是一种可以在网页上运行的栈式字节码，WASM-GC是WASM字节码的最新标准，能够全面支持内存垃圾收集器（Garbage Collector, GC）涉及的数据机构和指令。目前LLVM编译器可以生成不含GC指令的WASM字节码。毕设要求拓展目前LLVM代码生成器，使得其可以正确生成包含GC指令的WASM-GC字节码。</p></blockquote><p>​根据开题阶段的进一步调研可以把问题确定为：</p><ul><li>为llvm编写wasm-gc语言后端<ul><li>其中wasm-gc语言是wasm语言的一个扩展集</li><li>不要求实现所有功能，那太难了<ul><li>至少把跟类的封装相关的功能完成</li></ul></li></ul></li></ul><p>​对，总的任务就只有这一个，看上去很简单，但是如何继续进行拆分？</p><p>​当务之急有这么几个问题我希望搞清楚，针对这几个问题下手：</p><ul><li>wasm-gc与wasm的区别在哪里？我主要改写什么部分？</li><li>这个问题主要集中在llvm的后端，那llvm代码是如何生成的呢？<ul><li>llvm的运行流程是如何的？其中最重要的是中端到后端这一块究竟是如何运行的？</li><li>结合之前所探究到的语言差异，我如何将wasm-gc的部分功能移植到llvm上？</li></ul></li></ul><p>​综合所有问题来看，搞清楚llvm编译器的运行机理是最重要的环节，这个毕设实际是针对llvm编译器的全面分析，对这个大型系统的源码分析是必不可少的。这也将会是之后工作的一个重点。</p><h4 id="任务记录"><a href="#任务记录" class="headerlink" title="任务记录"></a>任务记录</h4><h5 id="探究wasm-gc语言和wasm语言的区别"><a href="#探究wasm-gc语言和wasm语言的区别" class="headerlink" title="探究wasm-gc语言和wasm语言的区别"></a>探究wasm-gc语言和wasm语言的区别</h5><h6 id="针对wasm-gc提案的概括"><a href="#针对wasm-gc提案的概括" class="headerlink" title="针对wasm-gc提案的概括"></a>针对wasm-gc提案的概括</h6><p>​在wasm官网可以查询到wasm-gc提案相关资料，此处资料显示此提案已经被标准化。</p><p>​针对gc仓库的MVP（最小可行产品）提案进行分析。</p><p>​针对MVP提案的分析如下：</p><ul><li>此MVP要求对应wasm语言版本已经实现<strong>部分前置提案</strong>：<ul><li>引用类型提案</li><li>类函数引用提案</li></ul></li><li>此MVP提案主要包括<strong>新类型</strong>：<ul><li>新的堆类型，引用类型</li><li>新的类型定义，类的上下文，类相等检验和子类映射</li></ul></li><li>此MVP提案也包括<strong>新指令</strong>：<ul><li>类型比较相等指令</li><li>聚合类型操控指令<ul><li>struct</li><li>array</li><li>i31</li></ul></li><li>外部类型转换指令</li><li>类型转换（cast）类指令</li><li>新的常量表达式指令<ul><li>跟新的类型相关</li></ul></li></ul></li></ul><p>​同时，官方官网文档给出核心实现的定义文档而没给出gc拓展实现的定义文档，于是先把拓展文档链接放在此处以便查阅。</p><blockquote><p>参考资料</p><p><a href="https://webassembly.github.io/gc/core/index.html">WebAssembly Specification — WebAssembly 2.0 + tail calls + function references + gc (Draft 2024-12-09)</a></p><p>这是带有gc实现的wasm文档</p></blockquote><h6 id="实现上的重大问题"><a href="#实现上的重大问题" class="headerlink" title="实现上的重大问题"></a>实现上的重大问题</h6><p>​针对原有测试代码所生成的代码进行分析，发现llvm现有wasm后端可能存在严重的不足</p><p>​关于此处代码生成的问题，现在需要做出的猜想是llvm现有后端<strong>仅仅实现了core部分而未完成任何额外提案</strong></p><p>​若是如此的话将会对wasm-gc子集的实现带来重大影响</p><p>TODO：当完成llvm后端分析时应返回补充此章内容，说明llvm的wasm后端指令集的缺陷</p><h5 id="对llvm编译器的工作流程分析"><a href="#对llvm编译器的工作流程分析" class="headerlink" title="对llvm编译器的工作流程分析"></a>对llvm编译器的工作流程分析</h5><p>TODO：待续</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>UE5 车辆运动 学习记录</title>
     <link href="/2025/02/21/UE5-%E8%BD%A6%E8%BE%86%E8%BF%90%E5%8A%A8-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     <url>/2025/02/21/UE5-%E8%BD%A6%E8%BE%86%E8%BF%90%E5%8A%A8-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>

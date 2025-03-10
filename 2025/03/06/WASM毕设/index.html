@@ -16,31 +16,21 @@
   <meta name="author" content="CodingKirby">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本博客记录如何在UE5中让车辆借助AI工具动起来的方法，以及其中涉及到的部分常用蓝图">
+    <meta name="description" content="本博客记录WASM毕设的学习记录与思考，作为周报使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UE5 车辆运动 学习记录">
-<meta property="og:url" content="http://example.com/2025/02/21/UE5-%E8%BD%A6%E8%BE%86%E8%BF%90%E5%8A%A8-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="WASM毕设 学习记录">
+<meta property="og:url" content="http://example.com/2025/03/06/WASM%E6%AF%95%E8%AE%BE/index.html">
 <meta property="og:site_name" content="Half Moon">
-<meta property="og:description" content="本博客记录如何在UE5中让车辆借助AI工具动起来的方法，以及其中涉及到的部分常用蓝图">
+<meta property="og:description" content="本博客记录WASM毕设的学习记录与思考，作为周报使用">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/InitialSettingsHuman.png">
-<meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/OverallLogicGetLocation.png">
-<meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/LogicGetTarget.png">
-<meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/BindBT.png">
-<meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/VariableRegister.png">
-<meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/Steering.png">
-<meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/Throttle.png">
-<meta property="og:image" content="http://example.com/img/Posts/WeeklyReport/CheckPosition.png">
-<meta property="article:published_time" content="2025-02-21T09:00:00.000Z">
-<meta property="article:modified_time" content="2025-02-21T11:17:15.222Z">
+<meta property="article:published_time" content="2025-03-06T10:45:36.000Z">
+<meta property="article:modified_time" content="2025-03-10T15:26:18.546Z">
 <meta property="article:author" content="CodingKirby">
-<meta property="article:tag" content="UE5">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/Posts/WeeklyReport/InitialSettingsHuman.png">
   
   
   
-  <title>UE5 车辆运动 学习记录 - Half Moon</title>
+  <title>WASM毕设 学习记录 - Half Moon</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -206,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="UE5 车辆运动 学习记录"></span>
+            <span id="subtitle" data-typed-text="WASM毕设 学习记录"></span>
           
         </div>
 
@@ -222,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-02-21 17:00" pubdate>
-          2025年2月21日 下午
+        <time datetime="2025-03-06 18:45" pubdate>
+          2025年3月6日 晚上
         </time>
       </span>
     
@@ -234,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          1.3k 字
         
       </span>
     
@@ -273,65 +263,80 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">UE5 车辆运动 学习记录</h1>
+            <h1 id="seo-header">WASM毕设 学习记录</h1>
             
             
               <div class="markdown-body">
                 
-                <p>​	本博客记录如何在UE5中让车辆借助AI工具动起来的方法，以及其中涉及到的部分常用蓝图</p>
+                <p>​	本博客记录WASM毕设的学习过程及研读相关资料时产生的思路等杂项。由于前期在忙考研复试，进展会出奇地慢。</p>
+<h4 id="任务总览"><a href="#任务总览" class="headerlink" title="任务总览"></a>任务总览</h4><p>​	毕设任务原文如下：</p>
 <blockquote>
-<p>参考资料：</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34437757/article/details/133029202">UE5 ChaosVehicles载具研究 （连载一）_ue5载具转弯车轮卡顿-CSDN博客</a></p>
-<p>这篇博客介绍了ChaosVehicle的常用节点及其功能，同时对摄像头的变换有启发</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BP4y1G78z/?spm_id_from=333.337.search-card.all.click&vd_source=e3bc0a74b003e86cc67e459d9355420a">虚幻引擎 - 车辆AI导航（非样条线）教程（全网首个非Character寻路教程）（已上传字幕文件）_哔哩哔哩_bilibili</a></p>
-<p>实现上参考这个视频</p>
+<p>​	WASM字节码是一种可以在网页上运行的栈式字节码，WASM-GC是WASM字节码的最新标准，能够全面支持内存垃圾收集器（Garbage Collector, GC）涉及的数据机构和指令。目前LLVM编译器可以生成不含GC指令的WASM字节码。毕设要求拓展目前LLVM代码生成器，使得其可以正确生成包含GC指令的WASM-GC字节码。</p>
 </blockquote>
-<p>​	这个流程建立在你有一个可以正常运动的车辆模型的基础之上，可以使用VehicleDemo的那个预设载具进行验证。</p>
-<h4 id="流程总览"><a href="#流程总览" class="headerlink" title="流程总览"></a>流程总览</h4><p>​	流程依次执行：</p>
+<p>​	根据开题阶段的进一步调研可以把问题确定为：</p>
 <ul>
-<li>设置行为树和黑板</li>
-<li>编写行为树任务</li>
-<li>构造AI控制器，并将其绑定到车辆上</li>
-<li>然后构造路径，模拟运行</li>
+<li>为llvm编写wasm-gc语言后端<ul>
+<li>其中wasm-gc语言是wasm语言的一个扩展集</li>
+<li>不要求实现所有功能，那太难了<ul>
+<li>至少把跟类的封装相关的功能完成</li>
 </ul>
-<p>​	对于本应用场景，路径是不可定的，因此我们使用“寻路点”对车辆运行路径进行标识，合理密度的寻路点可以构成一个较好的路径，从而供车辆寻路，完成自动驾驶模拟。如果将所有路标数据生成都交给后端，这会是一个不错的方案</p>
-<h4 id="流程分段"><a href="#流程分段" class="headerlink" title="流程分段"></a>流程分段</h4><h5 id="设置行为树和黑板"><a href="#设置行为树和黑板" class="headerlink" title="设置行为树和黑板"></a>设置行为树和黑板</h5><p>​	我们以人的AI运动来做举例，人和车的区别仅在于行为树任务编写上</p>
-<p>​	我们需要两个变量：Index和Location，其中Index是服务于从预装载的Location数组中取出对应Location的，而这个Location将会被传递到对应的移动节点进行驱动。在这个架构中，驱动Pawn的责任由行为树承担	</p>
-<p><img src="/img/Posts/WeeklyReport/InitialSettingsHuman.png" srcset="/img/loading.gif" lazyload alt="黑板和行为树的初始设置——人的情况"></p>
-<p>​	其中的BTTask_GetLocation是自己编写的蓝图任务节点，将在后文展示其逻辑</p>
-<p>​	很直白的流程：获取节点-&gt;移动到节点对应位置-&gt;等待（这个任务可以去掉）</p>
-<h5 id="编写行为树任务——GetLocation"><a href="#编写行为树任务——GetLocation" class="headerlink" title="编写行为树任务——GetLocation"></a>编写行为树任务——GetLocation</h5><p>​	第一个问题是如何获取Location，为了测试方便所以只编写了从预装载任务中获取所有坐标的逻辑。</p>
-<p><img src="/img/Posts/WeeklyReport/OverallLogicGetLocation.png" srcset="/img/loading.gif" lazyload alt="GetLocation总逻辑"></p>
-<p>​	这是总逻辑，核心函数是Get Target，至于使用PawnZ这个参数是由于人的中心点肯定是高于地面的，所以Location的Z肯定不等于人物的Z，我们使用人物的Z坐标来修正。</p>
-<p><img src="/img/Posts/WeeklyReport/LogicGetTarget.png" srcset="/img/loading.gif" lazyload alt="GetTarget逻辑"></p>
-<p>​	任务的总体逻辑长这样，其中注意Make Vector节点。PawnZ和Location的XY合成一个新的向量，这个向量带上了PawnZ的偏移，使得人的AI移动时能够正确处理位置关系；同时利用偏移量也能应对如上坡这种Z发生变化的情况。此处的Print String仅仅起到调试作用。至于别的都是语法细节</p>
-<h5 id="构造AI控制器并进行绑定"><a href="#构造AI控制器并进行绑定" class="headerlink" title="构造AI控制器并进行绑定"></a>构造AI控制器并进行绑定</h5><p>​	新建AIController类，在这个类中完成运行行为树和设置黑板初始值的预设</p>
-<p>​	将人物蓝图的对应设置同此新建的AIController类进行绑定即可</p>
-<p>​	语法很简单，仅给出AIController类作为参考，几乎全是语法细节</p>
-<p>​	然后就能正常驱动人的运行了</p>
-<p><img src="/img/Posts/WeeklyReport/BindBT.png" srcset="/img/loading.gif" lazyload alt="绑定行为树和设置初值"></p>
-<h4 id="UE5的车辆运动控制"><a href="#UE5的车辆运动控制" class="headerlink" title="UE5的车辆运动控制"></a>UE5的车辆运动控制</h4><p>​	车辆的AI设置和人的AI设置是大差不差的，但是最大的区别就在于人的运动逻辑不能套用到车的运动逻辑上，原生任务节点Move To因而不能套用到车辆上。由此，我们需要为车重新编写一套逻辑，这就是BTTask_VehicleMoveTo任务</p>
-<h5 id="驱动原理"><a href="#驱动原理" class="headerlink" title="驱动原理"></a>驱动原理</h5><p>​	车辆蓝图类是轮式载具Pawn的子类，这个子类驱动车辆运动的核心在于VehicleMoveComponent这个组件，通过对这个组件进行设置我们可以驱动车辆的运动。在优化后的蓝图中依次原理去掉Cast操作能极大限度的节约性能。</p>
-<p>​	所以在编写这个VehicleMoveTo任务时，只需要操控此Component就可以操控车辆的运动，事实上用于驱动车辆的常用节点正是以VehicleMoveComponent为输入的。</p>
-<h5 id="编写任务"><a href="#编写任务" class="headerlink" title="编写任务"></a>编写任务</h5><p>​	假定读着有一定任务树节点任务的基础知识。我们需要ReceiveExecuteAI事件节点和ReceiveTickAI事件节点来进行任务编写，核心是TickAI事件节点。</p>
-<h6 id="注册组件"><a href="#注册组件" class="headerlink" title="注册组件"></a>注册组件</h6><p>​	根据语法要求从黑板键中读取参数，保存组件。新的注册组件蓝图删去了Cast节点使得性能进一步提高。</p>
-<p><img src="/img/Posts/WeeklyReport/VariableRegister.png" srcset="/img/loading.gif" lazyload alt="注册组件"></p>
-<h6 id="转向逻辑"><a href="#转向逻辑" class="headerlink" title="转向逻辑"></a>转向逻辑</h6><p>​	在TickAI节点中编写车辆移动逻辑。这个节点在每一游戏Tick会被不断调用，驱动车辆运动并且检验车辆是否到达位置</p>
-<p>​	手动编写转向逻辑并不难，查找车辆位置-&gt;查找车辆对寻路点的角度-&gt;对减并且取Z轴旋转量-&gt;进行角度映射，输入转向节点。</p>
-<p>​	核心节点是Set Steering Input，这个节点接收[-1,1]的浮点数作为转向控制值，控制轮子在一定范围内转向（应该是[-90,90]吧）</p>
-<p><img src="/img/Posts/WeeklyReport/Steering.png" srcset="/img/loading.gif" lazyload alt="小车转向逻辑"></p>
-<h6 id="油门逻辑"><a href="#油门逻辑" class="headerlink" title="油门逻辑"></a>油门逻辑</h6><p>​	油门主要使用Set Throttle Input进行控制，接收[0,1]的油门强度进行控制</p>
-<p>​	同样存在刹车节点Set Brake Input和Set HandBrake Input，我不是很懂车所以不清楚刹车和手刹的区别，一般我是调用手刹节点的。借助这一对节点可以实现车辆速度控制。</p>
-<p>​	对于本Demo只使用简单的油门逻辑进行处理，实际这一块可以深挖很多，较好的模拟应该可以出车辆的变速行驶，这一块有待新的调研</p>
-<p>​	同时必须说明油门的强度，在模拟中这一块需要进行严格限制。油门过高会导致车辆容易飘出寻路路线（虽然车辆会有一定自己矫正的能力）</p>
-<p><img src="/img/Posts/WeeklyReport/Throttle.png" srcset="/img/loading.gif" lazyload alt="image-20250221184200052"></p>
-<h6 id="误差判断"><a href="#误差判断" class="headerlink" title="误差判断"></a>误差判断</h6><p>​	车辆模型的位点存在更大的Z偏差，而且在实际测试时车辆实际到达的位置可能会和实际寻路位置存在一定偏差（有可能不会完全准确），所以引入DeltaXY和DeltaZ变量。DeltaZ单列是因为车辆的Z偏差因为模型的原因可能会来的比XY偏差更大，这一变量个人觉得宜单独设置。</p>
-<p>​	TickAI会轮询最后的误差判断逻辑，当小车的位置在预设误差之内时会使任务成功，从而载入下一个寻路点。</p>
-<p><img src="/img/Posts/WeeklyReport/CheckPosition.png" srcset="/img/loading.gif" lazyload alt="检测位置相对误差"></p>
-<p>​	最后按照人AI的设置将剩余设置设置好，同时为DeltaXY和DeltaZ设置初值，车辆便可以正常运行起来了。</p>
-<h6 id="还有什么问题"><a href="#还有什么问题" class="headerlink" title="还有什么问题"></a>还有什么问题</h6><p>​	时间匆忙，没有写好取任务的逻辑，之前尝试写取任务的逻辑时可能存在一些小问题（企图用引用直接修改数组）最终并没有在本周把此逻辑完成。</p>
-<p>​	其次，变速问题，从上文可看到本文只是使用了一个很简单的恒速油门进行驱动，并没有编写变速和停车的逻辑。或许可以根据装载任务的缓冲区进行变速调整。</p>
-<p>​	</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>​	对，总的任务就只有这一个，看上去很简单，但是如何继续进行拆分？</p>
+<p>​	当务之急有这么几个问题我希望搞清楚，针对这几个问题下手：</p>
+<ul>
+<li>wasm-gc与wasm的区别在哪里？我主要改写什么部分？</li>
+<li>这个问题主要集中在llvm的后端，那llvm代码是如何生成的呢？<ul>
+<li>llvm的运行流程是如何的？其中最重要的是中端到后端这一块究竟是如何运行的？</li>
+<li>结合之前所探究到的语言差异，我如何将wasm-gc的部分功能移植到llvm上？</li>
+</ul>
+</li>
+</ul>
+<p>​	综合所有问题来看，搞清楚llvm编译器的运行机理是最重要的环节，这个毕设实际是针对llvm编译器的全面分析，对这个大型系统的源码分析是必不可少的。这也将会是之后工作的一个重点。</p>
+<h4 id="任务记录"><a href="#任务记录" class="headerlink" title="任务记录"></a>任务记录</h4><h5 id="探究wasm-gc语言和wasm语言的区别"><a href="#探究wasm-gc语言和wasm语言的区别" class="headerlink" title="探究wasm-gc语言和wasm语言的区别"></a>探究wasm-gc语言和wasm语言的区别</h5><h6 id="针对wasm-gc提案的概括"><a href="#针对wasm-gc提案的概括" class="headerlink" title="针对wasm-gc提案的概括"></a>针对wasm-gc提案的概括</h6><p>​	在wasm官网可以查询到wasm-gc提案相关资料，此处资料显示此提案已经被标准化。</p>
+<p>​	针对gc仓库的MVP（最小可行产品）提案进行分析。</p>
+<p>​	针对MVP提案的分析如下：</p>
+<ul>
+<li>此MVP要求对应wasm语言版本已经实现<strong>部分前置提案</strong>：<ul>
+<li>引用类型提案</li>
+<li>类函数引用提案</li>
+</ul>
+</li>
+<li>此MVP提案主要包括<strong>新类型</strong>：<ul>
+<li>新的堆类型，引用类型</li>
+<li>新的类型定义，类的上下文，类相等检验和子类映射</li>
+</ul>
+</li>
+<li>此MVP提案也包括<strong>新指令</strong>：<ul>
+<li>类型比较相等指令</li>
+<li>聚合类型操控指令<ul>
+<li>struct</li>
+<li>array</li>
+<li>i31</li>
+</ul>
+</li>
+<li>外部类型转换指令</li>
+<li>类型转换（cast）类指令</li>
+<li>新的常量表达式指令<ul>
+<li>跟新的类型相关</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>​	同时，官方官网文档给出核心实现的定义文档而没给出gc拓展实现的定义文档，于是先把拓展文档链接放在此处以便查阅。</p>
+<blockquote>
+<p>参考资料</p>
+<p><a target="_blank" rel="noopener" href="https://webassembly.github.io/gc/core/index.html">WebAssembly Specification — WebAssembly 2.0 + tail calls + function references + gc (Draft 2024-12-09)</a></p>
+<p>这是带有gc实现的wasm文档</p>
+</blockquote>
+<h6 id="实现上的重大问题"><a href="#实现上的重大问题" class="headerlink" title="实现上的重大问题"></a>实现上的重大问题</h6><p>​	针对原有测试代码所生成的代码进行分析，发现llvm现有wasm后端可能存在严重的不足</p>
+<p>​	关于此处代码生成的问题，现在需要做出的猜想是llvm现有后端<strong>仅仅实现了core部分而未完成任何额外提案</strong></p>
+<p>​	若是如此的话将会对wasm-gc子集的实现带来重大影响</p>
+<p>TODO：当完成llvm后端分析时应返回补充此章内容，说明llvm的wasm后端指令集的缺陷</p>
+<h5 id="对llvm编译器的工作流程分析"><a href="#对llvm编译器的工作流程分析" class="headerlink" title="对llvm编译器的工作流程分析"></a>对llvm编译器的工作流程分析</h5><p>TODO：待续</p>
 
                 
               </div>
@@ -340,34 +345,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/UE5/" class="category-chain-item">UE5</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/UE5/" class="print-no-link">#UE5</a>
-      
-    </div>
   
 </div>
 
@@ -377,8 +354,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>UE5 车辆运动 学习记录</div>
-      <div>http://example.com/2025/02/21/UE5-车辆运动-学习记录/</div>
+      <div>WASM毕设 学习记录</div>
+      <div>http://example.com/2025/03/06/WASM毕设/</div>
     </div>
     <div class="license-meta">
       
@@ -390,7 +367,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年2月21日</div>
+          <div>2025年3月6日</div>
         </div>
       
       
@@ -422,18 +399,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/06/WASM%E6%AF%95%E8%AE%BE/" title="WASM毕设 学习记录">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">WASM毕设 学习记录</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/02/13/UE5-AI%E5%B7%A5%E5%85%B7%E7%AE%B1-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="UE5 AI模块 学习记录">
-                        <span class="hidden-mobile">UE5 AI模块 学习记录</span>
+                      <a href="/2025/02/21/UE5-%E8%BD%A6%E8%BE%86%E8%BF%90%E5%8A%A8-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="UE5 车辆运动 学习记录">
+                        <span class="hidden-mobile">UE5 车辆运动 学习记录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
