@@ -16,22 +16,25 @@
   <meta name="author" content="CodingKirby">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本博客记录WASM毕设的学习记录与思考，作为周报使用">
+    <meta name="description" content="资料很散乱，只能另外开一篇记录进度">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WASM毕设 学习记录">
-<meta property="og:url" content="http://example.com/2025/03/06/WASM%E6%AF%95%E8%AE%BE/index.html">
+<meta property="og:title" content="WASM毕设-周报">
+<meta property="og:url" content="http://example.com/2025/03/18/WASM%E6%AF%95%E8%AE%BE-%E5%91%A8%E6%8A%A5%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Half Moon">
-<meta property="og:description" content="本博客记录WASM毕设的学习记录与思考，作为周报使用">
+<meta property="og:description" content="资料很散乱，只能另外开一篇记录进度">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-06T10:45:36.000Z">
-<meta property="article:modified_time" content="2025-03-17T17:39:34.840Z">
+<meta property="og:image" content="http://example.com/img/Posts/wasm-week/before-llc.png">
+<meta property="og:image" content="http://example.com/img/Posts/wasm-week/after-llc.png">
+<meta property="og:image" content="http://example.com/img/Posts/wasm-week/inst-in-td.png">
+<meta property="article:published_time" content="2025-03-17T17:39:42.538Z">
+<meta property="article:modified_time" content="2025-03-17T23:26:25.127Z">
 <meta property="article:author" content="CodingKirby">
-<meta property="article:tag" content="编译">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/Posts/wasm-week/before-llc.png">
   
   
   
-  <title>WASM毕设 学习记录 - Half Moon</title>
+  <title>WASM毕设-周报 - Half Moon</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="WASM毕设 学习记录"></span>
+            <span id="subtitle" data-typed-text="WASM毕设-周报"></span>
           
         </div>
 
@@ -213,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-03-06 18:45" pubdate>
-          2025年3月6日 晚上
+        <time datetime="2025-03-18 01:39" pubdate>
+          2025年3月18日 凌晨
         </time>
       </span>
     
@@ -225,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          1.2k 字
         
       </span>
     
@@ -264,183 +267,46 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">WASM毕设 学习记录</h1>
+            <h1 id="seo-header">WASM毕设-周报</h1>
             
             
               <div class="markdown-body">
                 
-                <p>​	本博客记录WASM毕设的学习过程及研读相关资料时产生的思路等杂项。由于前期在忙考研复试，进展会出奇地慢。</p>
-<h4 id="任务总览"><a href="#任务总览" class="headerlink" title="任务总览"></a>任务总览</h4><p>​	毕设任务原文如下：</p>
-<blockquote>
-<p>​	WASM字节码是一种可以在网页上运行的栈式字节码，WASM-GC是WASM字节码的最新标准，能够全面支持内存垃圾收集器（Garbage Collector, GC）涉及的数据机构和指令。目前LLVM编译器可以生成不含GC指令的WASM字节码。毕设要求拓展目前LLVM代码生成器，使得其可以正确生成包含GC指令的WASM-GC字节码。</p>
-</blockquote>
-<p>​	根据开题阶段的进一步调研可以把问题确定为：</p>
+                <h3 id="3-11"><a href="#3-11" class="headerlink" title="3.11"></a>3.11</h3><ul>
+<li><p>零散记录</p>
+</li>
+<li><p>本周任务还是集中在查看若干文档尝试搞清楚llvm架构</p>
+</li>
+<li><p>最大限度的情况下是实现struct系列和array系列的指令，但是根据实际操作情况来看能够实现简单struct系列的指令那都是谢天谢地了</p>
+</li>
+<li><p>优化编译命令来追踪代码</p>
 <ul>
-<li>为llvm编写wasm-gc语言后端<ul>
-<li>其中wasm-gc语言是wasm语言的一个扩展集</li>
-<li>不要求实现所有功能，那太难了<ul>
-<li>至少把跟类的封装相关的功能完成</li>
+<li>根据学长的意见改用llc进行编译而非clang+wasm2wat，这使得编译后代码的可读性大大增加，对比如下。可以清晰地看到前者不明所以的各种函数代号的实际意义，利于分析语义</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<p>​	对，总的任务就只有这一个，看上去很简单，但是如何继续进行拆分？</p>
-<p>​	当务之急有这么几个问题我希望搞清楚，针对这几个问题下手：</p>
+<p><img src="/img/Posts/wasm-week/before-llc.png" srcset="/img/loading.gif" lazyload alt="使用llc编译前"></p>
+<p><img src="/img/Posts/wasm-week/after-llc.png" srcset="/img/loading.gif" lazyload alt="使用llc编译后"></p>
 <ul>
-<li>wasm-gc与wasm的区别在哪里？我主要改写什么部分？</li>
-<li>这个问题主要集中在llvm的后端，那llvm代码是如何生成的呢？<ul>
-<li>llvm的运行流程是如何的？其中最重要的是中端到后端这一块究竟是如何运行的？</li>
-<li>结合之前所探究到的语言差异，我如何将wasm-gc的部分功能移植到llvm上？</li>
+<li>查找到使用IDE对llvm项目进行调试的方法：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/641991640">LLVM开发调试环境搭建-CLion版本 - 知乎</a></li>
+<li>关于测试代码：在了解llvm后端运行过程中出现了prolog&#x2F;epilog代码序列的问题，对此不是很理解。当前虽然获得了可解读的汇编代码但是尚不清楚如何对应到IR文件</li>
+<li>关于添加llvm指令：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/720468527">LLVM后端探究-指令定义篇 - 知乎</a>，在添加指令之前要先搞清楚wasm机器的结构（需要回顾一下）</li>
+<li>llvm的wasm后端的具体路径在：llvm&#x2F;lib&#x2F;Targets&#x2F;WebAssembly</li>
+<li>会采取这么一个文件架构跟llvm后端的实现有关，因为llvm的具体的目标后端是通过继承llvm本身提供的各种抽象类后再进行具体描述的。</li>
+<li>对于wasm后端文件的分析显示这里的.td文件是用于描述wasm栈式机的构成，其支持的指令以及wasm栈式机的寄存器文件相关的信息，也就是说通过新增.td文件可以自定义新的指令。<ul>
+<li>但是根据llvm文档，指令新建存在一个重要命令行工具tablegen，可能需要理解一下tblgen看看是否指令生成有用，否则就得手搓一下td文件了，这样的话得了解一下td文件中指令如何编写与构成</li>
+<li>可以联合td文件和wasm栈式机本身的架构解读一下llvm里反应的wasm栈式机是如何的</li>
 </ul>
 </li>
 </ul>
-<p>​	综合所有问题来看，搞清楚llvm编译器的运行机理是最重要的环节，这个毕设实际是针对llvm编译器的全面分析，对这个大型系统的源码分析是必不可少的。这也将会是之后工作的一个重点。</p>
-<h4 id="任务记录"><a href="#任务记录" class="headerlink" title="任务记录"></a>任务记录</h4><h5 id="探究wasm-gc语言和wasm语言的区别"><a href="#探究wasm-gc语言和wasm语言的区别" class="headerlink" title="探究wasm-gc语言和wasm语言的区别"></a>探究wasm-gc语言和wasm语言的区别</h5><h6 id="针对wasm-gc提案的概括"><a href="#针对wasm-gc提案的概括" class="headerlink" title="针对wasm-gc提案的概括"></a>针对wasm-gc提案的概括</h6><p>​	在wasm官网可以查询到wasm-gc提案相关资料，此处资料显示此提案已经被标准化。</p>
-<p>​	针对gc仓库的MVP（最小可行产品）提案进行分析。</p>
-<p>​	针对MVP提案的分析如下：</p>
+<p><img src="/img/Posts/wasm-week/inst-in-td.png" srcset="/img/loading.gif" lazyload alt="指令定义，是否可以照猫画虎？"></p>
 <ul>
-<li>此MVP要求对应wasm语言版本已经实现<strong>部分前置提案</strong>：<ul>
-<li>引用类型提案</li>
-<li>类函数引用提案</li>
+<li>llvm编写后端的方法：<a target="_blank" rel="noopener" href="https://llvm.org/docs/WritingAnLLVMBackend.html">Writing an LLVM Backend — LLVM 21.0.0git documentation</a>，但是文档本身提供的延伸文档还有重要的解析价值。</li>
+<li>llvm代码生成器架构文档：<a target="_blank" rel="noopener" href="https://llvm.org/docs/CodeGenerator.html">The LLVM Target-Independent Code Generator — LLVM 21.0.0git documentation</a>，这篇文档就是延伸文档之一，是其中最难读的。它展示了llvm代码生成器的基础架构和最常用的各种抽象超类。对于他们的理解和应用应该能更好的帮助此任务的完成。</li>
+<li>曾经在编译原理实验课中我们学到过llvm IR的文件结构，但是llvm处理IR的分析时所用的方法似乎不太一样。出现了新的诸如MachineBlock和MachineInstr这样的结构。目前尚不清楚处理后端时究竟是怎么存储的，内部结构层次是如何的。</li>
+<li>根据资料来看顺序是：LLVM IR -&gt; SelectionDAG -&gt; MachineDAG，其中指令选择发生在SelectionDAG到MachineDAG的过程中，这是否意味着我还需要查看DAG选择算法？</li>
+<li>希望搞清楚指令的加入以及wasm后端具体的各文件的情况</li>
 </ul>
-</li>
-<li>此MVP提案主要包括<strong>新类型</strong>：<ul>
-<li>新的堆类型，引用类型</li>
-<li>新的类型定义，类的上下文，类相等检验和子类映射</li>
-</ul>
-</li>
-<li>此MVP提案也包括<strong>新指令</strong>：<ul>
-<li>类型比较相等指令</li>
-<li>聚合类型操控指令<ul>
-<li>struct</li>
-<li>array</li>
-<li>i31</li>
-</ul>
-</li>
-<li>外部类型转换指令</li>
-<li>类型转换（cast）类指令</li>
-<li>新的常量表达式指令<ul>
-<li>跟新的类型相关</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>​	同时，官方官网文档给出核心实现的定义文档而没给出gc拓展实现的定义文档，于是先把拓展文档链接放在此处以便查阅。</p>
-<blockquote>
-<p>参考资料</p>
-<p><a target="_blank" rel="noopener" href="https://webassembly.github.io/gc/core/index.html">WebAssembly Specification — WebAssembly 2.0 + tail calls + function references + gc (Draft 2024-12-09)</a></p>
-<p>这是带有gc实现的wasm文档</p>
-</blockquote>
-<h6 id="实现上的重大问题"><a href="#实现上的重大问题" class="headerlink" title="实现上的重大问题"></a>实现上的重大问题</h6><p>​	针对原有测试代码所生成的代码进行分析，发现llvm现有wasm后端可能存在严重的不足</p>
-<p>​	关于此处代码生成的问题，现在需要做出的猜想是llvm现有后端<strong>仅仅实现了core部分而未完成任何额外提案</strong></p>
-<p>​	若是如此的话将会对wasm-gc子集的实现带来重大影响</p>
-<p>TODO：当完成llvm后端分析时应返回补充此章内容，说明llvm的wasm后端指令集的缺陷</p>
-<h5 id="对llvm编译器的工作流程分析"><a href="#对llvm编译器的工作流程分析" class="headerlink" title="对llvm编译器的工作流程分析"></a>对llvm编译器的工作流程分析</h5><p>TODO：待续</p>
-<h4 id="资料调研"><a href="#资料调研" class="headerlink" title="资料调研"></a>资料调研</h4><p>​	本毕设代码量可能不是特别多，但是针对llvm这项工程的结构分析需要阅读很多文档</p>
-<h5 id="llvm后端的结构"><a href="#llvm后端的结构" class="headerlink" title="llvm后端的结构"></a>llvm后端的结构</h5><blockquote>
-<p>参考资料：</p>
-<p><a target="_blank" rel="noopener" href="https://llvm.org/docs/CodeGenerator.html">The LLVM Target-Independent Code Generator — LLVM 21.0.0git documentation</a></p>
-<p>这篇文章详细记录了llvm后端的可用组件及对应用法。</p>
-</blockquote>
-<p>​	对这篇文章的分析侧重在llvm的工作流程以及如何按照llvm的规则为llvm增加新的目标端语言</p>
-<h6 id="架构总述"><a href="#架构总述" class="headerlink" title="架构总述"></a>架构总述</h6><p>​	llvm的目标架构无关代码生成器主要由六个部分构成：</p>
-<ul>
-<li>抽象目标架构描述接口<ul>
-<li>获取目标机器的多种重要属性</li>
-</ul>
-</li>
-<li>代表将要为目标端生成的代码的类<ul>
-<li>要足够抽象以代表任何目标端</li>
-</ul>
-</li>
-<li>MC层（MachineCode）<ul>
-<li>用以代表目标文件层面的代码的类和算法</li>
-<li>代表汇编层面的结构</li>
-</ul>
-</li>
-<li>目标无关算法</li>
-<li>针对某一目标端实现的抽象目标架构描述接口<ul>
-<li>即对第一类文件的实现</li>
-<li>其利用LLVM提供的组件，为某一特定目标端实现完整的代码生成器</li>
-<li>目录在lib&#x2F;Target&#x2F;</li>
-</ul>
-</li>
-<li>目标无关的JIT组件<ul>
-<li>LLVM JIT是完全目标无关的</li>
-</ul>
-</li>
-</ul>
-<p>​	最后原文贴上官方的路径推荐：</p>
-<blockquote>
-<p>​	Depending on which part of the code generator you are interested in working on, different pieces of this will be useful to you.</p>
-<p>​	In any case, you should be familiar with the <a target="_blank" rel="noopener" href="https://llvm.org/docs/CodeGenerator.html#target-description">target description</a> and <a target="_blank" rel="noopener" href="https://llvm.org/docs/CodeGenerator.html#machine-code-representation">machine code representation</a> classes. </p>
-<p>​	If you want to add a backend for a new target, you will need to <a target="_blank" rel="noopener" href="https://llvm.org/docs/CodeGenerator.html#implement-the-target-description">implement the target description</a> classes for your new target and understand the <a target="_blank" rel="noopener" href="https://llvm.org/docs/LangRef.html">LLVM code representation</a>. </p>
-<p>​	If you are interested in implementing a new <a target="_blank" rel="noopener" href="https://llvm.org/docs/CodeGenerator.html#code-generation-algorithm">code generation algorithm</a>, it should only depend on the target-description and machine code representation classes, ensuring that it is portable.</p>
-</blockquote>
-<p>​	本毕设的工作目标主要针对第2-3段的建议。</p>
-<p>​	对于llvm工程的架构而言，最重要的2个部分分别是TargetMachine和DataLayout，这两个部分是为了让新后端加入llvm系统而必须定义的。而别的功能，需要等你用到了对应的可重用组件再行定义。</p>
-<p>​	这样的实现会带来两个重要的应用：</p>
-<ul>
-<li>支持非传统目标端</li>
-<li>使不使用任何内置组件而实现一种代码生成后端成为了可能（尽管这并不推荐）</li>
-</ul>
-<h6 id="架构顶层设计"><a href="#架构顶层设计" class="headerlink" title="架构顶层设计"></a>架构顶层设计</h6><p>​	llvm基于标准的，基于寄存器的微处理器的代码生成而设计。</p>
-<p>​	代码生成分为以下阶段：</p>
-<ul>
-<li>指令选择</li>
-<li>调度与格式化</li>
-<li>基于SSA的机器码优化（这个是可选阶段）</li>
-<li>寄存器分配</li>
-<li>插入序言&#x2F;收尾代码序列（这个貌似涉及到了堆栈运行机理，这是必要的）</li>
-<li>最终机器码优化</li>
-<li>代码释放</li>
-</ul>
-<p>​	代码生成基于这样的一个假设：</p>
-<ul>
-<li>指令选择器会用最优模式匹配选择器来生成高质量的原生代码<ul>
-<li>以方便代码在不同优化阶段被使用</li>
-</ul>
-</li>
-</ul>
-<p>​	同时，代码生成过程中可以插入专门针对目标端的pass</p>
-<h6 id="用TableGen进行目标端描述"><a href="#用TableGen进行目标端描述" class="headerlink" title="用TableGen进行目标端描述"></a>用TableGen进行目标端描述</h6><p>​	目标描述类需要一个对目标端极其详尽的描述，但是这些目标往往有许多常见信息</p>
-<p>​	使用TableGen Overview工具来描述大块的机械代码</p>
-<p>​	有专门的tblgen命令行工具完成这个项目</p>
-<h6 id="目标描述类"><a href="#目标描述类" class="headerlink" title="目标描述类"></a>目标描述类</h6><p>​	这个类提供目标端的抽象描述，这个类是用于捕获目标端的抽象属性，且不包含任何代码生成算法。除了DataLayout类之外，所有目标描述类都是为了被作为具体目标实现的超类，且使得其中的虚方法被实现。为了获得实现，目标机器类提供访问接口，而具体架构需要访问接口。</p>
-<ul>
-<li>TargetMachine类</li>
-</ul>
-<p>​	这个类提供访问目标相关实现的若干虚函数，而其中必须要求实现的一个类则是DataLayout类。若别的组件也要用到的话，另外的接口也得相应实现。</p>
-<ul>
-<li>DataLayout类</li>
-</ul>
-<p>​	唯一必须实现的类，同时也是唯一不可拓展类：</p>
-<ol>
-<li>目标端如何利用内存组织架构</li>
-<li>目标端的对齐要求</li>
-<li>目标端的指针大小</li>
-<li>大端还是小端</li>
-</ol>
-<ul>
-<li>TargetLowering类</li>
-</ul>
-<p>​	在selectionDAG的部分被使用的类，描述LLVM代码如何变成SelectionDAG操作</p>
-<ul>
-<li>TargetRegisterInfo类</li>
-</ul>
-<p>​	描述目标端的寄存器文件以及寄存器之间的互动关系</p>
-<p>​	寄存器使用无符号整数表示，一般用很小的整数表示实际存在的物理寄存器</p>
-<p>​	可以为路由器设置别名</p>
-<ul>
-<li>TargetInstrInfo类</li>
-</ul>
-<p>​	描述目标端支持的机器指令</p>
-<p>​	……还有一堆杂项类</p>
-<p>​	上面其实提到了可以单独设计一遍pass来完成额外操作，是否可以为wasm-gc设计一个这样的pass呢？</p>
-<h6 id="机器代码描述类"><a href="#机器代码描述类" class="headerlink" title="机器代码描述类"></a>机器代码描述类</h6><p>​	LLVM代码最终是由机器代码描述相关的类，而且其表达方式高度抽象，以用于支持不同的使用方式——SSA类型表示或者非SSA类型表示</p>
-<p>​	</p>
 
                 
               </div>
@@ -449,34 +315,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%BC%96%E8%AF%91/" class="category-chain-item">编译</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E7%BC%96%E8%AF%91/" class="print-no-link">#编译</a>
-      
-    </div>
   
 </div>
 
@@ -486,8 +324,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>WASM毕设 学习记录</div>
-      <div>http://example.com/2025/03/06/WASM毕设/</div>
+      <div>WASM毕设-周报</div>
+      <div>http://example.com/2025/03/18/WASM毕设-周报记录/</div>
     </div>
     <div class="license-meta">
       
@@ -499,7 +337,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年3月6日</div>
+          <div>2025年3月18日</div>
         </div>
       
       
@@ -531,18 +369,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/18/WASM%E6%AF%95%E8%AE%BE-%E5%91%A8%E6%8A%A5%E8%AE%B0%E5%BD%95/" title="WASM毕设-周报">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">WASM毕设-周报</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/02/21/UE5-%E8%BD%A6%E8%BE%86%E8%BF%90%E5%8A%A8-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="UE5 车辆运动 学习记录">
-                        <span class="hidden-mobile">UE5 车辆运动 学习记录</span>
+                      <a href="/2025/03/06/WASM%E6%AF%95%E8%AE%BE/" title="WASM毕设 学习记录">
+                        <span class="hidden-mobile">WASM毕设 学习记录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
